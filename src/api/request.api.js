@@ -53,13 +53,20 @@ export const deleteBook = (id) => {
 }
 
 //banner
-export const createBanner = (bannerData) => {
-    return http.post(`/banner/create`, bannerData);
+export const getBanners = () => {
+    return http.get('banner');
 }
-export const getBanner = () => {
-    return http.get('/banner');
+export const postBanner = (data) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('image', data.image);
+    formData.append('expire_date', data.expire_date);
+    return http.post('/banner', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
-
 export const deleteBanner = (id) => {
     return http.delete(`/banner/${id}`);
 }

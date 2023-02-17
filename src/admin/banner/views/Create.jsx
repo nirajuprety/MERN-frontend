@@ -1,34 +1,35 @@
-import { useState } from "react";
-
 import validator from "utils/validator";
 import createBannerSchema from "utils/createBannerSchema";
-
-import FloatingInput from "common/FloatingInput";
+import Input from "common/Input";
 import Button from "common/Button";
+import { useState } from "react";
 
+import { postBanner } from "api/request.api";
 import { useNavigate } from "react-router-dom";
-import { createBanner } from "api/request.api";
 
 function Create() {
   const navigate = useNavigate();
+
   const [data, setData] = useState({
-    name: "",
+    title: "",
+    expire_date: "",
     image: "",
   });
+
   const [errors, setErrors] = useState({});
 
   const validate = validator(createBannerSchema);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    validate(name, value, { errors, setErrors });
-    setData({ ...data, [name]: value });
+    if (e.target.name === "image") {
+      setData({ ...data, [e.target.name]: e.target.files[0] });
+    } else {
+      const { name, value } = e.target;
+      validate(name, value, { errors, setErrors });
+      setData({ ...data, [name]: value });
+    }
   };
 
-  const handleFileChange = (e) => {
-    const { name } = e.target;
-    setData({ ...data, [name]: e.target.files[0] });
-  };
   const isValid = () => {
     for (const [key, value] of Object.entries(data))
       validate(key, value, { errors, setErrors });
@@ -39,18 +40,13 @@ function Create() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", data.name);
-    formData.append("image", data.image);
 
     if (isValid()) {
       try {
-        const res = await createBanner(formData);
-        console.log("Banner created successfully : ", res.data);
+        const res = await postBanner(data); //call axios from register
+        console.log(res);
         navigate("/admin/banner");
-        console.log(data);
       } catch (err) {
-        console.error("Failed to create banner ; " + err);
         setErrors(err.response.data.error);
       }
     } else {
@@ -59,33 +55,55 @@ function Create() {
   };
 
   return (
-    <div className="mx-5 mt-3">
-      <form onSubmit={handleSubmit}>
-        <h3 className="text-center mb-3">Add Banner</h3>
+    <div>
+      <div className="container-fluid">
+        <div
+          className="row vh-100 justify-content-center align-items-center"
+          style={{ backgroundColor: "darkgray" }}
+        >
+          <div className="col-5">
+            <div className="row">
+              <div className="col-12 text-center">
+                <h1>Create Banner</h1>
+              </div>
 
-        <FloatingInput
-          label="Name"
-          type="text"
-          placeholder="Enter name"
-          name="name"
-          id="name"
-          value={data.name}
-          error={errors?.name}
-          handler={handleChange}
-        />
+              <div className="col-12 border rounded-2 p-5 bg-white">
+                <form onSubmit={handleSubmit}>
+                  <Input
+                    label="Title"
+                    type="text"
+                    name="title"
+                    id="title"
+                    value={data.title}
+                    error={errors?.title}
+                    handler={handleChange}
+                  />
+                  <Input
+                    label="Expire Date"
+                    type="date"
+                    name="expire_date"
+                    id="expire_date"
+                    value={data.expire_date}
+                    error={errors?.expire_date}
+                    handler={handleChange}
+                  />
 
-        <FloatingInput
-          label="Image "
-          type="file"
-          placeholder="Choose Image..."
-          name="image"
-          id="image"
-          error={errors?.image}
-          handler={handleFileChange}
-        />
+                  <Input
+                    label="Image"
+                    type="file"
+                    name="image"
+                    id="image"
+                    error={errors?.image}
+                    handler={handleChange}
+                  />
 
-        <Button label="Add Banner" type="submit" color="primary" />
-      </form>
+                  <Button type="submit" label="Create" color="primary" />
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
