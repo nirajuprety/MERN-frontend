@@ -40,18 +40,26 @@ export const deleteCategory = (id) => {
 }
 
 // book
-export const createBook = (bookData) => {
-    // console.log('777')
-    return http.post(`/book/create`, bookData);
+export const getBooks = () => {
+    return http.get('book');
 }
-export const getBook = () => {
-    return http.get('/book');
+export const postBook = (data) => {
+    const formData = new FormData();
+    formData.append('name', data.name);
+    formData.append('price', data.price);
+    formData.append('category', data.category);
+    formData.append('author', data.author);
+    formData.append('stock', data.stock);
+    formData.append('image', data.image);
+    return http.post('/book', formData, {
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    });
 }
-
 export const deleteBook = (id) => {
     return http.delete(`/book/${id}`);
 }
-
 //banner
 export const getBanners = () => {
     return http.get('banner');

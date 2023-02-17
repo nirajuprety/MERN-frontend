@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getBanners, deleteBanner } from "api/request.api";
-const baseUrl = process.env.REACT_APP_API_URL || "http://localhost:3000";
+const baseUrl =  "http://localhost:5000";
 
 function Index() {
   const [banners, setBanners] = useState([]);
@@ -36,7 +36,7 @@ function Index() {
         <caption>
           <div className="d-flex justify-content-between mx-3">
             <h3>Banner List</h3>
-            <Link to="/admin/book/create" className="btn btn-outline-primary">
+            <Link to="/admin/banner/create" className="btn btn-outline-primary">
               Create
             </Link>
           </div>

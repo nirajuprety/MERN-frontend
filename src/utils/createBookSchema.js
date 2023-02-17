@@ -15,9 +15,7 @@ function createAuthorSchema(name, value) {
     case "stock":
       if (value === "") return "Stock is required";
       else return false;
-    case "image":
-      if (value === "") return "Image is required";
-      else return false;
+    
     default:
       break;
   }
