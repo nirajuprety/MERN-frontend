@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getBooks, deleteBook } from "api/request.api";
+import { getBooks, deleteBook, updateBook } from "api/request.api";
 
 const baseUrl = "http://localhost:5000";
-
 
 function Index() {
   const [books, setBooks] = useState([]);
@@ -30,6 +29,22 @@ function Index() {
   useEffect(() => {
     getBooks().then((response) => setBooks(response.data));
   }, []);
+
+  const handleUpdate = (id) => async (updatedData) => {
+    try {
+      const response = await updateBook(id, updatedData);
+      const updatedBook = response.data;
+      setBooks(books.map((book) => {
+        if (book._id === updatedBook._id) {
+          return updatedBook;
+        } else {
+          return book;
+        }
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
   // useEffect(() => { fetchData() }, []);
 
   return (
@@ -73,13 +88,16 @@ function Index() {
                 />{" "}
               </td>
 
+            
               <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={handleDelete(book._id)}
-                >
-                  Delete
-                </button>
+                <div className="d-flex flex-column">
+                  <div className="p-2">
+                    <button className="btn btn-danger" onClick={handleDelete(book._id)}>Delete</button>
+                  </div>
+                  <div className="p-2">
+                    <button className="btn btn-primary" onClick={handleUpdate(book._id)}>Edit</button>
+                  </div>
+                </div>
               </td>
             </tr>
           ))}

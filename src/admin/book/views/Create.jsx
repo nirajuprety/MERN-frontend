@@ -1,6 +1,6 @@
 import validator from "utils/validator";
 import createBookSchema from "utils/createBookSchema";
-import Input from "common/Input";
+import FloatingInput from "common/FloatingInput";
 import Button from "common/Button";
 import { useState } from "react";
 
@@ -58,80 +58,64 @@ function Create() {
   };
 
   return (
-    <div>
-      <div className="container-fluid">
-        <div
-          className="row vh-100 justify-content-center align-items-center"
-          style={{ backgroundColor: "darkgray" }}
-        >
-          <div className="col-5">
-            <div className="row">
-              <div className="col-12 text-center">
-                <h1>Create Book</h1>
-              </div>
-
-              <div className="col-12 border rounded-2 p-5 bg-white">
-                <form onSubmit={handleSubmit}>
-                  <Input
-                    label="Name"
-                    type="text"
-                    name="name"
-                    id="name"
-                    value={data.name}
-                    error={errors?.name}
-                    handler={handleChange}
-                  />{" "}
-                  <Input
-                    label="Price"
-                    type="number"
-                    name="price"
-                    id="price"
-                    value={data.price}
-                    error={errors?.price}
-                    handler={handleChange}
-                  />
-                  <Input
-                    label="Category"
-                    type="text"
-                    name="category"
-                    id="category"
-                    value={data.category}
-                    error={errors?.category}
-                    handler={handleChange}
-                  />
-                  <Input
-                    label="Author"
-                    type="text"
-                    name="author"
-                    id="author"
-                    value={data.author}
-                    error={errors?.author}
-                    handler={handleChange}
-                  />
-                  <Input
-                    label="Stock"
-                    type="number"
-                    name="stock"
-                    id="stock"
-                    value={data.stock}
-                    error={errors?.stock}
-                    handler={handleChange}
-                  />
-                  <Input
-                    label="Image"
-                    type="file"
-                    name="image"
-                    id="image"
-                    error={errors?.image}
-                    handler={handleChange}
-                  />
-                  <Button type="submit" label="Create" color="primary" />
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className="mx-5 mt-3">
+      <form onSubmit={handleSubmit}>
+        <h3 className="text-center mb-3">Add Banner</h3>
+        <FloatingInput
+          label="Name"
+          type="text"
+          name="name"
+          id="name"
+          value={data.name}
+          error={errors?.name}
+          handler={handleChange}
+        />{" "}
+        <FloatingInput
+          label="Price"
+          type="number"
+          name="price"
+          id="price"
+          value={data.price}
+          error={errors?.price}
+          handler={handleChange}
+        />
+        <FloatingInput
+          label="Category"
+          type="text"
+          name="category"
+          id="category"
+          value={data.category}
+          error={errors?.category}
+          handler={handleChange}
+        />
+        <FloatingInput
+          label="Author"
+          type="text"
+          name="author"
+          id="author"
+          value={data.author}
+          error={errors?.author}
+          handler={handleChange}
+        />
+        <FloatingInput
+          label="Stock"
+          type="number"
+          name="stock"
+          id="stock"
+          value={data.stock}
+          error={errors?.stock}
+          handler={handleChange}
+        />
+        <FloatingInput
+          label="Image"
+          type="file"
+          name="image"
+          id="image"
+          error={errors?.image}
+          handler={handleChange}
+        />
+        <Button type="submit" label="Create" color="primary" />
+      </form>
     </div>
   );
 }

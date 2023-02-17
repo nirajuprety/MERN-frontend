@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getBanners, deleteBanner } from "api/request.api";
-const baseUrl =  "http://localhost:5000";
+const baseUrl = "http://localhost:5000";
 
 function Index() {
   const [banners, setBanners] = useState([]);
@@ -31,51 +31,40 @@ function Index() {
   // useEffect(() => { fetchData() }, []);
 
   return (
-    <div>
-      <table className="table caption-top">
-        <caption>
-          <div className="d-flex justify-content-between mx-3">
+    <div className="row">
+      <div className="d-flex justify-content-between ">
             <h3>Banner List</h3>
             <Link to="/admin/banner/create" className="btn btn-outline-primary">
               Create
             </Link>
           </div>
-        </caption>
-        <thead>
-          <tr>
-            <th scope="col">S.N</th>
-            <th scope="col">Title</th>
-            <th scope="col">Image</th>
-            <th scope="col">Expire Date</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {banners.map((banner, index) => (
-            <tr key={banner._id}>
-              <th scope="row">{index + 1}</th>
-              <td>{banner.title}</td>
-              <td>
-                <img
-                  src={`${baseUrl}${banner.image}`}
-                  alt={banner.title}
-                  width="50"
-                  height="50"
-                />{" "}
-              </td>
-              <td>{banner.expire_date}</td>
-              <td>
-                <button
-                  className="btn btn-danger"
-                  onClick={handleDelete(banner._id)}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          
+      {banners.map((banner, index) => (
+        <div className="col-md-3">
+          <div class="card m-3" style={{ width: "18rem" }}>
+            <img
+              class="card-img-top"
+              src={`${baseUrl}${banner.image}`}
+              alt={banner.title}
+              width="50"
+              height="200"
+            />
+            <div class="card-body">
+              <h5 class="card-title">{banner.title}</h5>
+              <p class="card-text">
+                <h6>Expire Date : {banner.expire_date} </h6>
+              </p>
+
+              <button
+                className="btn btn-danger"
+                onClick={handleDelete(banner._id)}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      ))}
     </div>
   );
 }

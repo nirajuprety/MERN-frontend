@@ -60,6 +60,21 @@ export const postBook = (data) => {
 export const deleteBook = (id) => {
     return http.delete(`/book/${id}`);
 }
+export const updateBook = (id, data) => {
+  const formData = new FormData();
+  formData.append('name', data.name);
+  formData.append('price', data.price);
+  formData.append('category', data.category);
+  formData.append('author', data.author);
+  formData.append('stock', data.stock);
+  formData.append('image', data.image);
+  return http.put(`/book/${id}`, formData, {
+      headers: {
+          'Content-Type': 'multipart/form-data'
+      }
+  });
+}
+
 //banner
 export const getBanners = () => {
     return http.get('banner');

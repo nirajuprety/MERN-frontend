@@ -29,9 +29,6 @@ function Navbar() {
                             <NavLink to="/admin/category" className={({isActive}) => (isActive ? "nav-link active" : 'nav-link')}>Category</NavLink>
                         </li>
                         <li className="nav-item">
-                            <NavLink to="/admin/book" className={({isActive}) => (isActive ? "nav-link active" : 'nav-link')}>Book</NavLink>
-                        </li>
-                        <li className="nav-item">
                             <NavLink to="/admin/coupon" className={({isActive}) => (isActive ? "nav-link active" : 'nav-link')}>Coupon</NavLink>
                         </li>
                     </ul>
