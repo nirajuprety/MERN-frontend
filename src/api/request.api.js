@@ -52,7 +52,18 @@ export const deleteBook = (id) => {
     return http.delete(`/book/${id}`);
 }
 
-// 
+//banner
+export const createBanner = (bannerData) => {
+    return http.post(`/banner/create`, bannerData);
+}
+export const getBanner = () => {
+    return http.get('/banner');
+}
+
+export const deleteBanner = (id) => {
+    return http.delete(`/banner/${id}`);
+}
+
 
 // coupon 
 export const createCoupon = (CouponData) => {
