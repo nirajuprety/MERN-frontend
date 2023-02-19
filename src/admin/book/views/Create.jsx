@@ -60,7 +60,7 @@ function Create() {
   return (
     <div className="mx-5 mt-3">
       <form onSubmit={handleSubmit}>
-        <h3 className="text-center mb-3">Add Banner</h3>
+        <h3 className="text-center mb-3">Add Book</h3>
         <FloatingInput
           label="Name"
           type="text"

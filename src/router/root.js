@@ -22,8 +22,9 @@ import Book from 'admin/book/views/Index';
 import CreateCoupon from 'admin/coupon/Create'
 import Coupon from 'admin/coupon/Index'
 
-// import CreateCart from 'client/cart/Create'
-// import Cart from 'client/cart/Index'
+
+import CreateCart from 'client/cart/Create'
+import Cart from 'client/cart/Index'
 
 const router = createBrowserRouter([
     {
@@ -45,14 +46,14 @@ const router = createBrowserRouter([
                 path: "register",
                 element: <Register />
             },
-            // {
-            //     path : "cart",
-            //     element : <Cart/>
-            // },
-            // {
-            //     path : "cart/create",
-            //     element : <CreateCart />
-            // }
+            {
+                path : "cart",
+                element : <Cart/>
+            },
+            {
+                path : "cart/create",
+                element : <CreateCart />
+            }
         ]
     },
     {

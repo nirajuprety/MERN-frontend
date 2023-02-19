@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-// import { getCart, removeFromCart } from './request.api';
-import { getCart,removeFromCart } from 'api/request.api';
+import React, { useEffect, useState } from "react";
+import { getCart, removeFromCart } from "api/request.api";
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -10,21 +9,19 @@ const Cart = () => {
     const fetchCart = async () => {
       try {
         const response = await getCart();
-        setCartItems(response.data.items);
-
+        setCartItems(response.items);
       } catch (error) {
         console.error(error);
       }
     };
-    fetchCart();
 
+    fetchCart();
   }, []);
 
   const handleRemoveItem = async (itemId) => {
     try {
       const response = await removeFromCart(itemId);
-      setCartItems(response.data.items);
-
+      setCartItems(response.items);
     } catch (error) {
       console.error(error);
     }
@@ -33,8 +30,9 @@ const Cart = () => {
   return (
     <div>
       <h2>Cart</h2>
-      {cartItems.length === 0 ?
-        <p>Your cart is empty</p> :
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty</p>
+      ) : (
         <table>
           <thead>
             <tr>
@@ -45,17 +43,21 @@ const Cart = () => {
             </tr>
           </thead>
           <tbody>
-            {cartItems.map(item => (
+            {cartItems.map((item) => (
               <tr key={item._id}>
-                <td>{item.book.title}</td>
+                <td>{item.book.name}</td>
                 <td>{item.quantity}</td>
                 <td>{item.book.price}</td>
-                <td><button onClick={() => handleRemoveItem(item._id)}>Remove</button></td>
+                <td>
+                  <button onClick={() => handleRemoveItem(item._id)}>
+                    Remove
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
-      }
+      )}
     </div>
   );
 };
